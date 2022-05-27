@@ -139,12 +139,18 @@
           <div class="aside-title">Authorization</div>
           <div class="aside-content">
             <div class="register">
-              <form class="register" action="" method="POST">
-                <input class="input" name="email "type="email" placeholder="E-mail">
-                <input class="input" name="password" type="password" placeholder="Password">
-                <button type="button" class="btn btn-primary">Log in</button>
-              </form>
-              <span><a href="/registration">Registration</a></span>
+                <span>
+                    @auth("web")
+                        <a href="{{route("logout")}}">Logout</a>
+                    @endauth
+                </span>
+                <span>
+                @guest("web")
+                    <a href="{{route("login")}}">Login</a>
+                @endguest
+                </span>
+
+
             </div>
           </div>
         </div>

@@ -27,12 +27,6 @@
       </nav>
     </div>
   </header>
-  <script>
-    document.getElementById("datingBtn").addEventListener("click", datingBtn);
-    function datingBtn() {
-      alert("Soon!");
-    }
-  </script>
 
   <div class="menu2">
     <ul class="menusec">
@@ -59,31 +53,36 @@
             Registration
         </div>
         <div class="promo">
-          <form class="registration" action="index.html" method="POST">
+          <form class="registration" action="{{ route("registration_process") }}" method="POST">
+              @csrf
               <div class="registration__block">
                 <label for="name">Name</label>
                 <input class="input" id="nameInp" type="text" maxlength="15" name="name" placeholder="Name" required>
               </div>
-              <div class="registration__block">
-                <label for="name">Second name</label>
-                <input class="input" type="text" maxlength="15" name="secondname" placeholder="Second name" required>
-              </div>
-              <div class="registration__block">
-                <label for="name">Phone</label>
-                <input class="input" id="phone" type="text" maxlength="15" name="phone" placeholder="Phone" required>
-              </div>
+              @error('name')
+              <p class="text-red-500">{{$message}}</p>
+              @enderror
               <div class="registration__block">
                 <label for="name">E-mail</label>
-                <input class="input" id="email" type="email" maxlength="15" name="email" placeholder="E-mail" required>
+                <input class="input @error('email') border-red-5 @enderror" id="email" type="email"  name="email" placeholder="E-mail" required>
               </div>
+              @error('email')
+              <p class="text-red-500">{{$message}}</p>
+              @enderror
               <div class="registration__block">
                 <label for="name">Password</label>
-                <input class="input" type="password" maxlength="15" id="passwordInp" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" required>
+                <input class="input @error('password') border-red-5 @enderror" type="password" maxlength="15" id="passwordInp" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" required>
               </div>
+              @error('password')
+              <p class="text-red-500">{{$message}}</p>
+              @enderror
               <div class="registration__block">
                 <label for="name">Confirm password</label>
-                <input class="input" type="password" maxlength="15" id="confPassword" name="confirm" placeholder="Confirm your password" required>
+                <input class="input @error('password_confirmation') border-red-5 @enderror" type="password" maxlength="15" id="confPassword" name="password_confirmation" placeholder="Confirm your password" required>
               </div>
+              @error('password_confirmation')
+              <p class="text-red-500">{{$message}}</p>
+              @enderror
               <label  class="container">Show password
                 <input type="checkbox" id="checkPass">
                 <span class="checkmark"></span>
@@ -92,82 +91,11 @@
                 <label for="name"></label>
                 <button type="submit" id="regSub" class="btn btn-primary">Submit</button>
               </div>
-
-              <div id="message">
-                <h6>Password must contain the following:</h6>
-                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                <p id="capital" class="invalid">A <b>capital</b> letter</p>
-                <p id="number" class="invalid">A <b>number</b></p>
-                <p id="length" class="invalid">At least <b>8 characters</b></p>
-              </div>
           </form>
         </div>
       </main>
 
-      <script>
-        var myInput = document.getElementById("passwordInp");
-        var letter = document.getElementById("letter");
-        var capital = document.getElementById("capital");
-        var number = document.getElementById("number");
-        var length = document.getElementById("length");
 
-        myInput.onfocus = function() {
-          document.getElementById("message").style.display = "block";
-        }
-
-        myInput.onblur = function() {
-          document.getElementById("message").style.display = "none";
-        }
-
-        myInput.onkeyup = function() {
-          var lowerCaseLetters = /[a-z]/g;
-          if(myInput.value.match(lowerCaseLetters)) {
-            letter.classList.remove("invalid");
-            letter.classList.add("valid");
-          } else {
-            letter.classList.remove("valid");
-            letter.classList.add("invalid");
-          }
-
-          var upperCaseLetters = /[A-Z]/g;
-          if(myInput.value.match(upperCaseLetters)) {
-            capital.classList.remove("invalid");
-            capital.classList.add("valid");
-          } else {
-            capital.classList.remove("valid");
-            capital.classList.add("invalid");
-          }
-
-          var numbers = /[0-9]/g;
-          if(myInput.value.match(numbers)) {
-            number.classList.remove("invalid");
-            number.classList.add("valid");
-          } else {
-            number.classList.remove("valid");
-            number.classList.add("invalid");
-          }
-
-          if(myInput.value.length >= 8) {
-            length.classList.remove("invalid");
-            length.classList.add("valid");
-          } else {
-            length.classList.remove("valid");
-            length.classList.add("invalid");
-          }
-        }
-        </script>
-
-        <script>
-          document.getElementById("regSub").onclick = function(){
-            if(password.value != confirmPass.value){
-              alert("Password didn't match! Try again.");
-              return false;
-            } else{
-              alert("Succes!")
-              return true;
-            }
-          }
-        </script>
 
       <aside>
         <div class="aside">
